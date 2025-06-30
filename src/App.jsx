@@ -1,30 +1,26 @@
-import { useRef, useState } from "react";
+import { useReducer } from "react";
+
+import reducer from "../reducer";
 
 function App(){
-    let [count , setCount] = useState(0);
-    let [check , setCheck] = useState(0);
+    let [state,dispatch] = useReducer(reducer , 0);
 
-    let dataRef = useRef(0);
-
-    let dataClick = () => {
-        setCount(count+1)
+    let handleIncrese = () =>{
+        dispatch ({type : 'Increment' , payload : 5});
     }
-
-    let datacheck = () =>{
-        setCheck(check+1)
+    let handleDecrese = () => {
+        dispatch({type : 'Decrement'});
     }
-    let handleClick = () =>{
-        dataRef.current +=1;
-        console.log(dataRef)
+    let handleRest = () =>{
+        dispatch({type : 'Reset'})
     }
 
     return(
         <>
-        <h1>{count}</h1>
-        <button onClick={dataClick}>Click</button>
-        <h1>{check}</h1>
-        <button onClick={datacheck}>Click</button>
-        <button onClick={handleClick}>Click</button>
+            <h1>This is value {state} </h1>
+            <button onClick={handleIncrese}>Click</button>
+            <button onClick={handleDecrese}>Click</button>
+            <button onClick= {handleRest}>Reset</button>
         </>
     )
 
