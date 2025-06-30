@@ -1,39 +1,32 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 
 function App(){
+    let [count , setCount] = useState(0);
+    let [check , setCheck] = useState(0);
 
-    let [data,setData] = useState(0);
-    let [list,setList] = useState(1);
-    let [display , setDisplay] = useState([]);
+    let dataRef = useRef(0);
 
+    let dataClick = () => {
+        setCount(count+1)
+    }
+
+    let datacheck = () =>{
+        setCheck(check+1)
+    }
     let handleClick = () =>{
-        setData(data+1);
+        dataRef.current +=1;
+        console.log(dataRef)
     }
-    let handleList = () =>{
-        setList(list+5);
-    }
-    useEffect(()=>{
-        fetch(`https://fakestoreapi.com/products`)
-        .then(res => res.json())
-        .then(resdata => setDisplay(resdata))
-    },[]);
 
-    let displayList = display.map((item)=>(
-        <p key={item.id}>{item.title}</p>
-    ))
-    
     return(
         <>
-            <h1>{data}</h1>
-            <button onClick={handleClick}>Increment</button>
-            <h2>{list}</h2>
-            <button onClick={handleList}>List Increment</button>
-            <div>
-                {displayList}
-            </div>
+        <h1>{count}</h1>
+        <button onClick={dataClick}>Click</button>
+        <h1>{check}</h1>
+        <button onClick={datacheck}>Click</button>
+        <button onClick={handleClick}>Click</button>
         </>
     )
 
 }
-
 export default App;
